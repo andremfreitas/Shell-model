@@ -9,3 +9,6 @@ libs = -llapack -lblas
 all:
 	$(FC) -c $(sources)
 	$(FC) -o $(target) $(objs) $(libs)
+
+clean:
+	rm -f *.mod *.csv $(target) $(objs)
