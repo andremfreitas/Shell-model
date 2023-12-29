@@ -1,5 +1,10 @@
+module Precision
+  integer, parameter, public :: dp = selected_real_kind(8)
+end module Precision
+  
+  
   !! This module contains fixed public parameters available to all subroutine, functions, etc.
- module Fixed_Parameters
+module Fixed_Parameters
   use Precision 
   implicit none
 
@@ -12,7 +17,7 @@
   real(dp), public:: t, ran, k(0:Num-1), ek(0:Num-1)
   integer, public :: n,i                             !! n is Shell index,dummy indices
 
- end module Fixed_Parameters
+end module Fixed_Parameters
 
 
 module Integration
