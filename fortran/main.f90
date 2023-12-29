@@ -1,7 +1,6 @@
 ! @andremfreitas dec 2023 - original code F Fossella
 
-program Sabra   !!compile with triple "make" comand and execute with "./esegui"   --- this is only because of the incorrect dependencies between integration and main!!!!!!!!! -_-
-  !!import useful module
+program Sabra   
   use Precision
   use Fixed_Parameters
   use Integration

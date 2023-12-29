@@ -1,21 +1,23 @@
+! This module sets a public, hardcoded (this is what parameter means in fortran) integer, called 'dp', the function selected_real_kind(8). 
+! is used to specify the precision of real numbers, and in this case, it's set to 8bytes (64 bits aka float64).
 module Precision
   integer, parameter, public :: dp = selected_real_kind(8)
 end module Precision
   
   
-  !! This module contains fixed public parameters available to all subroutine, functions, etc.
+! This module contains fixed public parameters available to all subroutine, functions, etc.
 module Fixed_Parameters
   use Precision 
   implicit none
 
-  !! Fixed public parameters
-  integer, parameter, public:: Num=20                !! Number of shells
+  ! Fixed public parameters
+  integer, parameter, public:: Num=20                ! Number of shells
   real(dp), parameter, public:: dt=1.e-5, nu=1.e-6, Tmax=500, transient_for_stationarity=20, measure_step=1.e-3
   real(dp), parameter, public:: lambda=2, k0=1, a=1, b=-0.5, c=-0.5, pi=3.14159265 
   complex*16, public, parameter:: img=(0.0_dp,1.0_dp)
-  complex*16, public:: forcing(0:Num-1)  
-  real(dp), public:: t, ran, k(0:Num-1), ek(0:Num-1)
-  integer, public :: n,i                             !! n is Shell index,dummy indices
+  complex*16, public:: forcing(0:Num-1)              ! Array for forcing
+  real(dp), public:: t, ran, k(0:Num-1), ek(0:Num-1) 
+  integer, public :: n,i                             ! n is Shell index,dummy indices
 
 end module Fixed_Parameters
 
@@ -27,7 +29,7 @@ module Integration
 
   contains
 
-    !!!!!!! Non linear coupling of SABRA shell model G[u,u] !!!!!!!!!!!
+    ! Non linear coupling G[u,u] 
     function G(u)      
       complex*16,intent(in):: u(0:Num-1)
       complex*16:: G(0:Num-1) 
@@ -49,14 +51,14 @@ module Integration
 
 
 
-  !! This subroutine integrates with RK4 scheme the Sabra shell model for turbulence
-  !! The solution is simplified through the integrating factor method 
+  ! This subroutine integrates with RK4 scheme the Sabra shell model for turbulence
+  ! The solution is simplified through the integrating factor method 
     subroutine RK4(u)       
       implicit none 
-      complex*16,intent(inout):: u(0:Num-1)                 !! Velocity on the shells
-      complex*16,allocatable:: A1(:),A2(:),A3(:),A4(:)      !! RungeKutta increments
+      complex*16,intent(inout):: u(0:Num-1)                 ! Velocity on the shells
+      complex*16,allocatable:: A1(:),A2(:),A3(:),A4(:)      ! RungeKutta increments
       
-      !! Allocating RK increments 
+      ! Allocating RK increments 
       allocate(A1(0:Num-1),A2(0:Num-1),A3(0:Num-1),A4(0:Num-1))
   
       A1=dt*(forcing+G(u))    !! increments
@@ -71,18 +73,18 @@ module Integration
 
 
 
-    !! This routine returns some physical quantities of interest
+    ! This routine returns some physical quantities of interest
     subroutine physical_quantities(u,input_energy,flux_energy,dissipated_energy)
       complex*16, intent(in):: u(0:Num-1)
       real(dp), intent(out):: input_energy, flux_energy, dissipated_energy
 
       input_energy=sum(dreal(u*conjg(forcing)+conjg(u)*forcing))/2
       flux_energy=sum(u*conjg(G(u))+conjg(u)*G(u))/2
-      dissipated_energy=sum(nu*(k**2)*(dreal(u*conjg(u))))   !! deve essere normalizzato??
+      dissipated_energy=sum(nu*(k**2)*(dreal(u*conjg(u))))   
     end subroutine physical_quantities
 
     
-    !! This Routine returns structure function 
+    ! Returns structure function 
     subroutine structure(u,S1,S2,S3,S4,S5,S6)
       complex*16, intent(in):: u(0:Num-1)
       real(dp), intent(out):: S1(0:Num-1),S2(0:Num-1),S3(0:Num-1)
@@ -97,7 +99,7 @@ module Integration
     end subroutine structure 
 
 
-    !! this routine returns the running average 
+    ! Returns the running average 
     subroutine runaverage(old,new,i)
       integer, intent(in):: i
       real(dp), intent(in):: old
