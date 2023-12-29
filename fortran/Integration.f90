@@ -1,3 +1,20 @@
+  !! This module contains fixed public parameters available to all subroutine, functions, etc.
+ module Fixed_Parameters
+  use Precision 
+  implicit none
+
+  !! Fixed public parameters
+  integer, parameter, public:: Num=20                !! Number of shells
+  real(dp), parameter, public:: dt=1.e-5, nu=1.e-6, Tmax=500, transient_for_stationarity=20, measure_step=1.e-3
+  real(dp), parameter, public:: lambda=2, k0=1, a=1, b=-0.5, c=-0.5, pi=3.14159265 
+  complex*16, public, parameter:: img=(0.0_dp,1.0_dp)
+  complex*16, public:: forcing(0:Num-1)  
+  real(dp), public:: t, ran, k(0:Num-1), ek(0:Num-1)
+  integer, public :: n,i                             !! n is Shell index,dummy indices
+
+ end module Fixed_Parameters
+
+
 module Integration
     use Precision
     use Fixed_Parameters
