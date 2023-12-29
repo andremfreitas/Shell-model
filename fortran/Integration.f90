@@ -55,7 +55,7 @@ module Integration
   ! The solution is simplified through the integrating factor method 
     subroutine RK4(u)       
       implicit none 
-      complex*16,intent(inout):: u(0:Num-1)                 ! Velocity on the shells
+      complex*16,intent(inout):: u(0:Num-1)                 ! Velocity on the shells -- inout allows read and write
       complex*16,allocatable:: A1(:),A2(:),A3(:),A4(:)      ! RungeKutta increments
       
       ! Allocating RK increments 

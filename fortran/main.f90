@@ -98,7 +98,7 @@ program Sabra
     write(3,*) k(n),new_S1(n),new_S2(n),new_S3(n),new_S4(n),new_S5(n),new_S6(n),new_flusso(n)
   end do
 
-  !close(1)
+  close(1)
   close(2)
   close(3)
 
