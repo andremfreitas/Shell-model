@@ -1,5 +1,5 @@
 FC = gfortran -fbounds-check
-target = exe
+target = run
 sources = Integration.f90  main.f90     
 objs = $(sources:.f90=.o)
 mods = $(sources:.f90=.mod)
