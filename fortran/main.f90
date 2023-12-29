@@ -17,9 +17,9 @@ program Sabra
 
 
   !!! write output files !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  open(1, file = 'time VS velocity.csv')
-  open(2, file = 'time VS average_input(t), average_flux(t), average_dissipated(t).csv')
-  open(3, file = 'k_n VS S1(k), S2(k), S3(k), S4(k), S5(k), S6(k).csv')
+  open(1, file = 'time_velocity.csv')
+  open(2, file = 'time__average_input_flux_dissipated.csv')
+  open(3, file = 'kn_S1_6.csv')
 
 
   !!!!!!!!!! Initialize forcing and k space !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
