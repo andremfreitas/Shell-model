@@ -123,5 +123,5 @@ program Sabra   !!compile with triple "make" comand and execute with "./esegui"
   close(2)
   close(3)
 
-  write(*,*) "", u
+  write(*,*) ""
 end program Sabra
