@@ -34,6 +34,38 @@ plt.yscale('log', base = 2)
 plt.tight_layout()
 plt.savefig('case1/struct_functions.png')
 
+# plot k41 theory slopes and data points for inertial range
+
+plt.figure()
+plt.scatter(kn[5:15], s1[5:15], marker = 'o')
+plt.scatter(kn[5:15], s2[5:15], marker = 'o')
+plt.scatter(kn[5:15], s3[5:15], marker = 'o')
+plt.scatter(kn[5:15], s4[5:15], marker = 'o')
+plt.scatter(kn[5:15], s5[5:15], marker = 'o')
+plt.scatter(kn[5:15], s6[5:15], marker = 'o')
+
+diff1 = s1[5] / (table[:,0])[5]**(-1/3) 
+diff2 = s2[5] / (table[:,0])[5]**(-2/3) 
+diff3 = s3[5] / (table[:,0])[5]**(-3/3) 
+diff4 = s4[5] / (table[:,0])[5]**(-4/3) 
+diff5 = s5[5] / (table[:,0])[5]**(-5/3) 
+diff6 = s6[5] / (table[:,0])[5]**(-6/3) 
+
+plt.plot(kn[5:15], diff1 * ((table[:,0])[5:15])**(-1/3) , label = 'Slope -1/3')
+plt.plot(kn[5:15], diff2 * ((table[:,0])[5:15])**(-2/3) , label = 'Slope -2/3')
+plt.plot(kn[5:15], diff3 * ((table[:,0])[5:15])**(-3/3), label = 'Slope -1')
+plt.plot(kn[5:15], diff4 * ((table[:,0])[5:15])**(-4/3), label = 'Slope -4/3')
+plt.plot(kn[5:15], diff5 * ((table[:,0])[5:15])**(-5/3), label = 'Slope -5/3')
+plt.plot(kn[5:15], diff6 * ((table[:,0])[5:15])**(-6/3), label = 'Slope -6/3')
+plt.legend(loc='lower left')
+plt.xlabel(r'$n$', fontsize = 16)
+plt.ylabel(r'$S_n$', fontsize = 16)
+plt.yscale('log', base = 2)
+plt.gca().xaxis.set_major_locator(MultipleLocator(2))
+plt.tight_layout()
+plt.savefig('case1/struct_slope_k41.png')
+
+
 filename2 = 'case1/time__average_input_flux_dissipated.csv'
 table2 = np.genfromtxt(filename2, delimiter = '')
 
@@ -62,3 +94,6 @@ plt.xlabel(r'$t/T_0$', fontsize = 16)
 plt.ylabel(r'flux_', fontsize = 16)
 plt.savefig('case1/_flux_avg.png')
 
+
+
+# Need to understand what is going on with the averages and fluxes and what they mean.
