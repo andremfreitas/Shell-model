@@ -34,6 +34,19 @@ plt.yscale('log', base = 2)
 plt.tight_layout()
 plt.savefig('case1/struct_functions.png')
 
+
+# Just plot the flux by itself
+
+plt.figure()
+plt.plot(kn, flux, label = 'Flux', marker = 'o')
+plt.xlabel(r'$n$', fontsize = 16)
+plt.ylabel(r'Flux', fontsize = 16)
+plt.gca().xaxis.set_major_locator(MultipleLocator(2))   # Set the x-axis locator to show multiples of 2
+#plt.xscale('log', base = 2)
+plt.yscale('log', base = 2)
+plt.tight_layout()
+plt.savefig('case1/flux.png')
+
 # plot k41 theory slopes and data points for inertial range
 
 plt.figure()
