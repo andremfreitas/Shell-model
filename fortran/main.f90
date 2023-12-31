@@ -17,7 +17,7 @@ program Sabra
 
 
   !!! write output files !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  open(1, file = 'time_velocity.csv')
+  open(1, file = 'time_velocity.hdf5')
   open(2, file = 'time__average_input_flux_dissipated.csv')
   open(3, file = 'kn_S1_6.csv')
 
@@ -56,7 +56,7 @@ program Sabra
   do i=1,int(Tmax/dt) !! so integrated the model for Tmax/dt times
     t=t+dt
     call RK4(u)
-    !write(1,*) t,dreal(u)
+    write(1,*) t,dreal(u)
 
   if (mod(i,int(measure_step/dt)).eq.0) then  !!Measurements
       call physical_quantities(u,new_input,new_flux,new_dissipated)  
