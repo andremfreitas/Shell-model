@@ -21,7 +21,7 @@ program Sabra
   open(2, file = 'time__average_input_flux_dissipated.csv') ! for the whole system
   open(3, file = 'kn_S1_6.csv')
   open(4, file = 'time_physical.csv')
-  ! open(5, file = 'n_physical.csv')
+  open(5, file = 'lagrangian.csv')
 
 
   !!!!!!!!!! Initialize forcing and k space !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -59,9 +59,13 @@ program Sabra
     t=t+dt
     call RK4(u)
     if (mod(i,100).eq.0) then
-      write(1,*) t,dreal(u(4)),dreal(u(9)), dreal(u(14)) 
+      write(1,*) t,dreal(u(4)),dreal(u(9)), dreal(u(14)), sum(dreal(u)) 
       write(4,*) t, sum(dreal(u*conjg(forcing)+conjg(u)*forcing))/2, sum(u*conjg(G(u))+conjg(u)*G(u))/2, &
        sum(nu*(k**2)*(dreal(u*conjg(u)))) ! input, flux, dissipation
+    end if
+
+    if (i*dt/Tmax > 0.8) then 
+      write(5, *) t, sum(dreal(u)) 
     end if
 
   if (mod(i,int(measure_step/dt)).eq.0) then  !!Measurements
@@ -109,6 +113,7 @@ program Sabra
   close(2)
   close(3)
   close(4)
+  close(5)
 
   write(*,*) ""
 end program Sabra
