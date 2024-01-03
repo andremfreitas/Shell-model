@@ -138,11 +138,6 @@ veloc_n5 = table3[:,1]
 veloc_n10 = table3[:,2]
 veloc_n15 = table3[:,3]
 
-print(time3.shape)
-print(veloc_n5.shape)
-print(veloc_n10.shape)
-print(veloc_n15.shape)
-
 veloc_n5_sqr = veloc_n5 ** 2
 veloc_n10_sqr = veloc_n10 ** 2
 veloc_n15_sqr = veloc_n15 ** 2
@@ -171,4 +166,21 @@ plt.yscale('log', base = 10)
 plt.ylabel('pdf', fontsize = 16)
 plt.tight_layout()
 plt.savefig('case1/pdf.png')
+plt.close() 
 
+filename4 = 'time_physical.csv'
+
+table4 = np.genfromtxt(filename4, delimiter='')
+
+time4 = table4[:,0]
+i_flux = table4[:,1]
+conv_flux = table4[:,2]
+d_flux = table4[:,3]
+
+time4_nd = time4 / t0
+
+plt.plot(time4_nd, d_flux, lw = 1)
+plt.ylabel(r'$D_N$', fontsize=16)
+plt.xlabel(r'$t/t_0$', fontsize =16)
+plt.savefig('case1/dissipation.png')
+plt.close()
