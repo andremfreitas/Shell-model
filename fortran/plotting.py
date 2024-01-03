@@ -170,5 +170,5 @@ plt.xlabel(r'$\Re(u_n) / \langle (\Re(u_n))^2 \rangle^{\frac{1}{2}}$ ', fontsize
 plt.yscale('log', base = 10)
 plt.ylabel('pdf', fontsize = 16)
 plt.tight_layout()
-plt.savefig('pdf.png')
+plt.savefig('case1/pdf.png')
 
