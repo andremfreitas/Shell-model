@@ -2,6 +2,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 
+
+def compute_pdf(data_vector, num_bins):
+    # Compute the histogram
+    hist, bins = np.histogram(data_vector, bins=num_bins, density=True)
+
+    # Calculate the bin centers
+    bin_centers = (bins[:-1] + bins[1:]) / 2
+
+    # Compute the PDF
+    pdf = hist / np.sum(hist)
+
+    return pdf, bin_centers
+
+
 filename = 'case1/kn_S1_6.csv'
 table = np.genfromtxt(filename, delimiter='')
 
@@ -33,6 +47,7 @@ plt.gca().xaxis.set_major_locator(MultipleLocator(2))   # Set the x-axis locator
 plt.yscale('log', base = 2)
 plt.tight_layout()
 plt.savefig('case1/struct_functions.png')
+plt.close()
 
 
 # Just plot the flux by itself
@@ -46,6 +61,7 @@ plt.gca().xaxis.set_major_locator(MultipleLocator(2))   # Set the x-axis locator
 plt.yscale('log', base = 2)
 plt.tight_layout()
 plt.savefig('case1/flux.png')
+plt.close()
 
 # plot k41 theory slopes and data points for inertial range
 
@@ -77,6 +93,7 @@ plt.yscale('log', base = 2)
 plt.gca().xaxis.set_major_locator(MultipleLocator(2))
 plt.tight_layout()
 plt.savefig('case1/struct_slope_k41.png')
+plt.close()
 
 
 filename2 = 'case1/time__average_input_flux_dissipated.csv'
@@ -94,19 +111,64 @@ plt.plot(nd_time, dissipation)
 plt.xlabel(r'$t/T_0$', fontsize = 16)
 plt.ylabel(r'$\langle D_n \rangle$', fontsize = 16)
 plt.savefig('case1/avg_dissipation.png')
+plt.close()
 
 plt.figure()
 plt.plot(nd_time, input_flux)
 plt.xlabel(r'$t/T_0$', fontsize = 16)
 plt.ylabel(r'$\langle D_n \rangle$', fontsize = 16)
 plt.savefig('case1/input_flux_avg.png')
+plt.close()
 
 plt.figure()
 plt.plot(nd_time, flux_)
 plt.xlabel(r'$t/T_0$', fontsize = 16)
 plt.ylabel(r'flux_', fontsize = 16)
 plt.savefig('case1/_flux_avg.png')
+plt.close()
 
 
 
-# Need to understand what is going on with the averages and fluxes and what they mean.
+
+filename3 = 'time_velocity.csv'
+table3 = np.genfromtxt(filename3, delimiter='')
+
+time3 = table3[:,0]
+veloc_n5 = table3[:,1]
+veloc_n10 = table3[:,2]
+veloc_n15 = table3[:,3]
+
+print(time3.shape)
+print(veloc_n5.shape)
+print(veloc_n10.shape)
+print(veloc_n15.shape)
+
+veloc_n5_sqr = veloc_n5 ** 2
+veloc_n10_sqr = veloc_n10 ** 2
+veloc_n15_sqr = veloc_n15 ** 2
+
+avg_vel_n5 = np.average(veloc_n5_sqr) ** 0.5 
+avg_vel_n10 = np.average(veloc_n10_sqr) ** 0.5
+avg_vel_n15 = np.average(veloc_n15_sqr) ** 0.5
+
+v_n5_nd = veloc_n5 / avg_vel_n5
+v_n10_nd = veloc_n10 / avg_vel_n10
+v_n15_nd = veloc_n15 / avg_vel_n15
+
+# your_data_vector = np.random.randn(1000)  # Example random data
+nbins = 250
+pdf5, bin_centers5 = compute_pdf(v_n5_nd, nbins)
+pdf10, bin_centers10 = compute_pdf(v_n10_nd, nbins)
+pdf15, bin_centers15 = compute_pdf(v_n15_nd, nbins)
+
+plt.plot(bin_centers5, pdf5, label='n = 5', lw =2)
+plt.plot(bin_centers10, pdf10, label='n = 10', lw = 2)
+plt.plot(bin_centers15, pdf15, label='n = 15', lw = 2)
+# plt.title('Probability Density Function (PDF)')
+plt.legend()
+plt.xlabel(r'$\Re(u_n) / \langle (\Re(u_n))^2 \rangle^{\frac{1}{2}}$ ', fontsize = 16)
+plt.yscale('log', base = 10)
+plt.ylabel('pdf', fontsize = 16)
+plt.tight_layout()
+plt.savefig('pdf.png')
+
