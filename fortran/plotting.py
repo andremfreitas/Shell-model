@@ -220,9 +220,9 @@ filename4 = 'time_physical.csv'
 table4 = np.genfromtxt(filename4, delimiter='')
 
 time4 = table4[:,0]
-i_flux = table4[:,1]
-conv_flux = table4[:,2]
-d_flux = table4[:,3]
+i_flux = table4[:,1]        # time series of sum of input flux
+conv_flux = table4[:,2]     #  ""   ""   ""         conv flux
+d_flux = table4[:,3]        #  ""   ""   ""         dissipation flux
 
 time4_nd = time4 / t0
 
@@ -235,31 +235,31 @@ plt.close()
 
 # Lagrangian structure functions
 
-filename5 = 'lagrangian.csv'
+# filename5 = 'lagrangian.csv'
 
-table5 = np.genfromtxt(filename5, delimiter='')
+# table5 = np.genfromtxt(filename5, delimiter='')
 
-# v_sum = table3[:,4]
-v_sum = table5[:,1]
+# # v_sum = table3[:,4]
+# v_sum = table5[:,1]
 
-tau1, lagr1 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 1)
-tau2, lagr2 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 2)
-tau3, lagr3 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 3)
-tau4, lagr4 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 4)
-tau5, lagr5 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 5)
+# tau1, lagr1 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 1)
+# tau2, lagr2 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 2)
+# tau3, lagr3 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 3)
+# tau4, lagr4 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 4)
+# tau5, lagr5 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 5)
 
-plt.figure()
-plt.loglog(tau1, lagr1, label = r'$S_1$', marker='o')
-plt.loglog(tau2, lagr2, label = r'$S_2$', marker='o')
-plt.loglog(tau3, lagr3, label = r'$S_3$', marker='o')
-plt.loglog(tau4, lagr4, label = r'$S_4$', marker='o')
-plt.loglog(tau5, lagr5, label = r'$S_5$', marker='o')
-plt.ylabel(r'$L^p_{\tau}$', fontsize = 16)
-plt.xlabel(r'$\tau$', fontsize = 16)
-plt.legend(loc='upper left')
-plt.tight_layout()
-plt.savefig('case1/lagrangian_struct_func.png')
-plt.close()
+# plt.figure()
+# plt.loglog(tau1, lagr1, label = r'$S_1$', marker='o')
+# plt.loglog(tau2, lagr2, label = r'$S_2$', marker='o')
+# plt.loglog(tau3, lagr3, label = r'$S_3$', marker='o')
+# plt.loglog(tau4, lagr4, label = r'$S_4$', marker='o')
+# plt.loglog(tau5, lagr5, label = r'$S_5$', marker='o')
+# plt.ylabel(r'$L^p_{\tau}$', fontsize = 16)
+# plt.xlabel(r'$\tau$', fontsize = 16)
+# plt.legend(loc='upper left')
+# plt.tight_layout()
+# plt.savefig('case1/lagrangian_struct_func.png')
+# plt.close()
 
 kurt = s4 / s2**2
 plt.plot(kn, kurt, marker='o')
@@ -271,3 +271,31 @@ plt.yscale('log', base = 2)
 plt.tight_layout()
 plt.savefig('case1/kurtosis.png')
 plt.close()
+
+#########
+# Attempt at fluxes vs n
+
+filename6 = 'n_physical.csv'
+
+table6 = np.genfromtxt(filename6, delimiter='')
+
+time6 = table6[:,0]
+fl1 = table6[:,1]
+fl20 = table6[:,20]
+fl_n = np.array([np.average(table6[:,1]), np.average(table6[:,2]), np.average(table6[:,3]), np.average(table6[:,4]), np.average(table6[:,5])
+                , np.average(table6[:,6]), np.average(table6[:,7]), np.average(table6[:,8]), np.average(table6[:,9]), np.average(table6[:,10])
+                , np.average(table6[:,11]), np.average(table6[:,12]), np.average(table6[:,13]), np.average(table6[:,14]), np.average(table6[:,15])
+                , np.average(table6[:,16]), np.average(table6[:,17]), np.average(table6[:,18]), np.average(table6[:,19]), np.average(table6[:,20])])
+
+
+
+
+plt.figure()
+plt.plot(kn, fl_n, marker = 'o')
+plt.xlabel(r'$n$', fontsize = 16)
+plt.legend(r'$\langle \Pi_n \rangle$', fontsize  = 16)
+plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
+plt.tight_layout()
+plt.show()
+# plt.savefig('case1/kurtosis.png')
+# plt.close()
