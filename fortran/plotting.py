@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MultipleLocator
+from matplotlib.ticker import MultipleLocator, MaxNLocator
 
 
 def compute_pdf(data_vector, num_bins):
@@ -248,6 +248,7 @@ tau3, lagr3 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 3)
 tau4, lagr4 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 4)
 tau5, lagr5 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 5)
 
+plt.figure()
 plt.loglog(tau1, lagr1, label = r'$S_1$', marker='o')
 plt.loglog(tau2, lagr2, label = r'$S_2$', marker='o')
 plt.loglog(tau3, lagr3, label = r'$S_3$', marker='o')
@@ -258,4 +259,15 @@ plt.xlabel(r'$\tau$', fontsize = 16)
 plt.legend(loc='upper left')
 plt.tight_layout()
 plt.savefig('case1/lagrangian_struct_func.png')
+plt.close()
+
+kurt = s4 / s2**2
+plt.plot(kn, kurt, marker='o')
+plt.xlabel(r'$n$', fontsize = 16)
+plt.ylabel(r'$S_4 / (S_2)^2$', fontsize = 16)
+# plt.title('Kurtosis')
+plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
+plt.yscale('log', base = 2)
+plt.tight_layout()
+plt.savefig('case1/kurtosis.png')
 plt.close()
