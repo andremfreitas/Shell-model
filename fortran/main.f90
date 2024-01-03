@@ -58,7 +58,7 @@ program Sabra
   do i=1,int(Tmax/dt) !! so integrated the model for Tmax/dt times
     t=t+dt
     call RK4(u)
-    if (mod(i,100).eq.0) then
+    if (mod(i,int(measure_step/dt)).eq.0) then
       write(1,*) t,dreal(u(4)),dreal(u(9)), dreal(u(14)) 
       write(4,*) t, sum(dreal(u*conjg(forcing)+conjg(u)*forcing))/2, sum(u*conjg(G(u))+conjg(u)*G(u))/2, &
        sum(nu*(k**2)*(dreal(u*conjg(u))))
