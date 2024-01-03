@@ -15,6 +15,53 @@ def compute_pdf(data_vector, num_bins):
 
     return pdf, bin_centers
 
+def compute_kurtosis(pdf_values, x_values):
+    """
+    Computes the kurtosis of a probability density function (PDF).
+
+    Parameters:
+    - pdf_values (array): Array of PDF values corresponding to x_values.
+    - x_values (array): Array of x values corresponding to the PDF values.
+
+    Returns:
+    - kurtosis (float): Kurtosis of the PDF.
+    """
+    mean = np.trapz(x_values * pdf_values, x=x_values)
+    variance = np.trapz((x_values - mean)**2 * pdf_values, x=x_values)
+    skewness = np.trapz((x_values - mean)**3 * pdf_values, x=x_values) / (variance**1.5)
+    fourth_moment = np.trapz((x_values - mean)**4 * pdf_values, x=x_values)
+    
+    kurtosis = fourth_moment / (variance**2) - 3.0
+    
+    return kurtosis
+
+def lagrangian_struct_func(u, tau_min, tau_max, p):
+    """
+    Computes L_tau^p for a given vector u(t), a range of time lags [tau_min, tau_max], and power p.
+
+    Parameters:
+    - u (array): Input vector u(t).
+    - tau_min (float): Minimum time lag.
+    - tau_max (float): Maximum time lag.
+    - p (int): Power.
+
+    Returns:
+    - tau_values (array): Array of time lags.
+    - L_tau_p_vector (array): Vector of L_tau^p values for each time lag.
+    """
+    N = len(u)
+    
+    if tau_max >= N:
+        raise ValueError("Maximum time lag (tau_max) should be less than the length of the vector (N).")
+
+    # tau_values = np.linspace(tau_min, tau_max, num=int((tau_max - tau_min) / tau_min) + 1)
+    tau_values = np.logspace(np.log10(tau_min), np.log10(tau_max), num = 10, base = 10)
+    L_tau_p_vector = np.zeros_like(tau_values, dtype=float)
+
+    for i, tau in enumerate(tau_values):
+        L_tau_p_vector[i] = np.mean(np.abs(u[:-int(tau*N)] - u[int(tau*N):]) ** p)
+
+    return tau_values, L_tau_p_vector
 
 filename = 'case1/kn_S1_6.csv'
 table = np.genfromtxt(filename, delimiter='')
@@ -184,3 +231,25 @@ plt.ylabel(r'$D_N$', fontsize=16)
 plt.xlabel(r'$t/t_0$', fontsize =16)
 plt.savefig('case1/dissipation.png')
 plt.close()
+
+
+# Lagrangian structure functions
+
+v_sum = table3[:,4]
+
+tau1, lagr1 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 1)
+tau2, lagr2 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 2)
+tau3, lagr3 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 3)
+tau4, lagr4 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 4)
+tau5, lagr5 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 5)
+
+plt.loglog(tau1, lagr1, label = r'$S_1$', marker='o')
+plt.loglog(tau2, lagr2, label = r'$S_2$', marker='o')
+plt.loglog(tau3, lagr3, label = r'$S_3$', marker='o')
+plt.loglog(tau4, lagr4, label = r'$S_4$', marker='o')
+plt.loglog(tau5, lagr5, label = r'$S_5$', marker='o')
+plt.ylabel(r'$L^p_{\tau}$', fontsize = 16)
+plt.xlabel(r'$\tau$', fontsize = 16)
+plt.legend(loc='upper left')
+plt.tight_layout()
+plt.show()
