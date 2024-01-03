@@ -83,6 +83,24 @@ module Integration
       dissipated_energy=sum(nu*(k**2)*(dreal(u*conjg(u))))   
     end subroutine physical_quantities
 
+    !! This routine returns some physical quantities of interest
+    subroutine physical_quantities2(u,input_energy,flux_energy,dissipated_energy)
+      complex*16, intent(in):: u(0:Num-1)
+      real(dp), intent(out):: input_energy(0:Num-1), flux_energy(0:Num-1), dissipated_energy(0:Num-1)
+      real(dp), allocatable:: suppI(:), suppF(:), suppD(:)
+      
+      allocate(suppI(0:Num-1),suppF(0:Num-1),suppD(0:Num-1))
+      suppI=dreal(u*conjg(forcing))              ! Input energy at the n-th scale
+      suppF=dreal(u*conjg(G(u)))                 ! Energy flux at the n-th scale
+      suppD=nu*(k**2)*(dreal(u*conjg(u)))        ! Dissipated energy at the n-th scale
+
+      do n=0,Num-1
+          input_energy=sum(suppI(0:n))           ! Input energy up to the n-th scale
+          flux_energy(n)=sum(suppF(0:n))         ! Energy flux up to the n-th scale
+          dissipated_energy(n)=sum(suppD(0:n))   ! Dissipated energy up to the n-th scale
+      end do            
+      deallocate(suppI,suppF,suppD)
+  end subroutine physical_quantities2
     
     ! Returns structure function 
     subroutine structure(u,S1,S2,S3,S4,S5,S6)
