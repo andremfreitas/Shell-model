@@ -235,7 +235,12 @@ plt.close()
 
 # Lagrangian structure functions
 
-v_sum = table3[:,4]
+filename5 = 'lagrangian.csv'
+
+table5 = np.genfromtxt(filename5, delimiter='')
+
+# v_sum = table3[:,4]
+v_sum = table5[:,1]
 
 tau1, lagr1 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 1)
 tau2, lagr2 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 2)
@@ -252,4 +257,5 @@ plt.ylabel(r'$L^p_{\tau}$', fontsize = 16)
 plt.xlabel(r'$\tau$', fontsize = 16)
 plt.legend(loc='upper left')
 plt.tight_layout()
-plt.show()
+plt.savefig('case1/lagrangian_struct_func.png')
+plt.close()
