@@ -63,7 +63,10 @@ def lagrangian_struct_func(u, tau_min, tau_max, p):
 
     return tau_values, L_tau_p_vector
 
-filename = 'case1/kn_S1_6.csv'
+# where to save the figures
+folder = 'case2/'
+
+filename = folder + 'kn_S1_6.csv'
 table = np.genfromtxt(filename, delimiter='')
 
 kn = table[:,0]
@@ -93,7 +96,7 @@ plt.gca().xaxis.set_major_locator(MultipleLocator(2))   # Set the x-axis locator
 #plt.xscale('log', base = 2)
 plt.yscale('log', base = 2)
 plt.tight_layout()
-plt.savefig('case1/struct_functions.png')
+plt.savefig(folder + 'struct_functions.png')
 plt.close()
 
 
@@ -107,7 +110,7 @@ plt.gca().xaxis.set_major_locator(MultipleLocator(2))   # Set the x-axis locator
 #plt.xscale('log', base = 2)
 plt.yscale('log', base = 2)
 plt.tight_layout()
-plt.savefig('case1/flux.png')
+plt.savefig(folder + 'flux.png')
 plt.close()
 
 # plot k41 theory slopes and data points for inertial range
@@ -139,11 +142,11 @@ plt.ylabel(r'$S_n$', fontsize = 16)
 plt.yscale('log', base = 2)
 plt.gca().xaxis.set_major_locator(MultipleLocator(2))
 plt.tight_layout()
-plt.savefig('case1/struct_slope_k41.png')
+plt.savefig(folder + 'struct_slope_k41.png')
 plt.close()
 
 
-filename2 = 'case1/time__average_input_flux_dissipated.csv'
+filename2 = folder + 'time__average_input_flux_dissipated.csv'
 table2 = np.genfromtxt(filename2, delimiter = '')
 
 time = table2[:,0]
@@ -157,21 +160,21 @@ plt.figure()
 plt.plot(nd_time, dissipation)
 plt.xlabel(r'$t/T_0$', fontsize = 16)
 plt.ylabel(r'$\langle D_n \rangle$', fontsize = 16)
-plt.savefig('case1/avg_dissipation.png')
+plt.savefig(folder + 'avg_dissipation.png')
 plt.close()
 
 plt.figure()
 plt.plot(nd_time, input_flux)
 plt.xlabel(r'$t/T_0$', fontsize = 16)
 plt.ylabel(r'$\langle D_n \rangle$', fontsize = 16)
-plt.savefig('case1/input_flux_avg.png')
+plt.savefig(folder + 'input_flux_avg.png')
 plt.close()
 
 plt.figure()
 plt.plot(nd_time, flux_)
 plt.xlabel(r'$t/T_0$', fontsize = 16)
 plt.ylabel(r'flux_', fontsize = 16)
-plt.savefig('case1/_flux_avg.png')
+plt.savefig(folder + '_flux_avg.png')
 plt.close()
 
 
@@ -212,7 +215,7 @@ plt.xlabel(r'$\Re(u_n) / \langle (\Re(u_n))^2 \rangle^{\frac{1}{2}}$ ', fontsize
 plt.yscale('log', base = 10)
 plt.ylabel('pdf', fontsize = 16)
 plt.tight_layout()
-plt.savefig('case1/pdf.png')
+plt.savefig(folder + 'pdf.png')
 plt.close() 
 
 filename4 = 'time_physical.csv'
@@ -229,7 +232,7 @@ time4_nd = time4 / t0
 plt.plot(time4_nd, d_flux, lw = 1)
 plt.ylabel(r'$D_N$', fontsize=16)
 plt.xlabel(r'$t/t_0$', fontsize =16)
-plt.savefig('case1/dissipation.png')
+plt.savefig(folder + 'dissipation.png')
 plt.close()
 
 
@@ -258,7 +261,7 @@ plt.close()
 # plt.xlabel(r'$\tau$', fontsize = 16)
 # plt.legend(loc='upper left')
 # plt.tight_layout()
-# plt.savefig('case1/lagrangian_struct_func.png')
+# plt.savefig(folder + 'lagrangian_struct_func.png')
 # plt.close()
 
 kurt = s4 / s2**2
@@ -269,7 +272,7 @@ plt.ylabel(r'$S_4 / (S_2)^2$', fontsize = 16)
 plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.yscale('log', base = 2)
 plt.tight_layout()
-plt.savefig('case1/kurtosis.png')
+plt.savefig(folder + 'kurtosis.png')
 plt.close()
 
 #########
@@ -303,7 +306,7 @@ plt.xlabel(r'$n$', fontsize = 16)
 plt.ylabel(r'$\langle I_n \rangle$', fontsize  = 16)
 plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.tight_layout()
-plt.savefig('case1/I_n.png')
+plt.savefig(folder + 'I_n.png')
 plt.close()
 
 plt.figure()
@@ -312,7 +315,7 @@ plt.xlabel(r'$n$', fontsize = 16)
 plt.ylabel(r'$\langle \Pi_n \rangle$', fontsize  = 16)
 plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.tight_layout()
-plt.savefig('case1/Pi_n.png')
+plt.savefig(folder + 'Pi_n.png')
 plt.close()
 
 plt.figure()
@@ -321,7 +324,7 @@ plt.xlabel(r'$n$', fontsize = 16)
 plt.ylabel(r'$\langle D_n \rangle$', fontsize  = 16)
 plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.tight_layout()
-plt.savefig('case1/D_n.png')
+plt.savefig(folder + 'D_n.png')
 plt.close()
 
 #################
@@ -335,5 +338,5 @@ plt.plot(bin_pi18, pdf_pi18, lw=2)
 plt.xlabel(r'$\Pi_n$', fontsize  = 16)
 plt.ylabel('pdf', fontsize = 16)
 plt.tight_layout()
-plt.savefig('case1/pdf_conv_flux.png')
+plt.savefig(folder + 'pdf_conv_flux.png')
 plt.close()
