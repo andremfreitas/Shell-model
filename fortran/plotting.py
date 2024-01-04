@@ -280,22 +280,60 @@ filename6 = 'n_physical.csv'
 table6 = np.genfromtxt(filename6, delimiter='')
 
 time6 = table6[:,0]
-fl1 = table6[:,1]
-fl20 = table6[:,20]
-fl_n = np.array([np.average(table6[:,1]), np.average(table6[:,2]), np.average(table6[:,3]), np.average(table6[:,4]), np.average(table6[:,5])
+
+I_n = np.array([np.average(table6[:,1]), np.average(table6[:,2]), np.average(table6[:,3]), np.average(table6[:,4]), np.average(table6[:,5])
                 , np.average(table6[:,6]), np.average(table6[:,7]), np.average(table6[:,8]), np.average(table6[:,9]), np.average(table6[:,10])
                 , np.average(table6[:,11]), np.average(table6[:,12]), np.average(table6[:,13]), np.average(table6[:,14]), np.average(table6[:,15])
                 , np.average(table6[:,16]), np.average(table6[:,17]), np.average(table6[:,18]), np.average(table6[:,19]), np.average(table6[:,20])])
 
+Pi_n = np.array([np.average(table6[:,21]), np.average(table6[:,22]), np.average(table6[:,23]), np.average(table6[:,24]), np.average(table6[:,25])
+                , np.average(table6[:,26]), np.average(table6[:,27]), np.average(table6[:,28]), np.average(table6[:,29]), np.average(table6[:,30])
+                , np.average(table6[:,31]), np.average(table6[:,32]), np.average(table6[:,33]), np.average(table6[:,34]), np.average(table6[:,35])
+                , np.average(table6[:,36]), np.average(table6[:,37]), np.average(table6[:,38]), np.average(table6[:,39]), np.average(table6[:,40])])
 
+D_n = np.array([np.average(table6[:,41]), np.average(table6[:,42]), np.average(table6[:,43]), np.average(table6[:,44]), np.average(table6[:,45])
+                , np.average(table6[:,46]), np.average(table6[:,47]), np.average(table6[:,48]), np.average(table6[:,49]), np.average(table6[:,50])
+                , np.average(table6[:,51]), np.average(table6[:,52]), np.average(table6[:,53]), np.average(table6[:,54]), np.average(table6[:,55])
+                , np.average(table6[:,56]), np.average(table6[:,57]), np.average(table6[:,58]), np.average(table6[:,59]), np.average(table6[:,60])])
 
 
 plt.figure()
-plt.plot(kn, fl_n, marker = 'o')
+plt.plot(kn, I_n, marker = 'o')
 plt.xlabel(r'$n$', fontsize = 16)
-plt.legend(r'$\langle \Pi_n \rangle$', fontsize  = 16)
+plt.ylabel(r'$\langle I_n \rangle$', fontsize  = 16)
 plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.tight_layout()
-plt.show()
-# plt.savefig('case1/kurtosis.png')
-# plt.close()
+plt.savefig('case1/I_n.png')
+plt.close()
+
+plt.figure()
+plt.plot(kn, Pi_n, marker = 'o')
+plt.xlabel(r'$n$', fontsize = 16)
+plt.ylabel(r'$\langle \Pi_n \rangle$', fontsize  = 16)
+plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
+plt.tight_layout()
+plt.savefig('case1/Pi_n.png')
+plt.close()
+
+plt.figure()
+plt.plot(kn, D_n, marker = 'o')
+plt.xlabel(r'$n$', fontsize = 16)
+plt.ylabel(r'$\langle D_n \rangle$', fontsize  = 16)
+plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
+plt.tight_layout()
+plt.savefig('case1/D_n.png')
+plt.close()
+
+#################
+# pdf of convective fluxes (pi_n)
+################
+
+pdf_pi18, bin_pi18 = compute_pdf(np.average(table6[:,35]), 20)
+
+plt.figure()
+plt.plot(bin_pi18, pdf_pi18, lw=2)
+plt.xlabel(r'$\Pi_n$', fontsize  = 16)
+plt.ylabel('pdf', fontsize = 16)
+plt.tight_layout()
+plt.savefig('case1/pdf_conv_flux.png')
+plt.close()
