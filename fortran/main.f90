@@ -22,6 +22,7 @@ program Sabra
   open(3, file = 'kn_S1_6.csv')
   open(4, file = 'time_physical.csv')
   open(5, file = 'lagrangian.csv')
+  open(6, file = 'n_physical.csv')  ! in reality this is still time series but not summed and for all n. later I can change it such that I just use this file and sum when sum is needed.
 
 
   !!!!!!!!!! Initialize forcing and k space !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -52,8 +53,8 @@ program Sabra
   call RK4(u)
   call physical_quantities(u,old_input,old_flux,old_dissipated) 
   call structure(u,old_S1,old_S2,old_S3,old_S4,old_S5,old_S6)
-  old_flusso=(u*conjg(G(u))+conjg(u)*G(u))/2
- 
+  old_flusso = (u*conjg(G(u))+conjg(u)*G(u))/2
+  
   !!Evolve system and write average values
   do i=1,int(Tmax/dt) !! so integrated the model for Tmax/dt times
     t=t+dt
@@ -62,6 +63,7 @@ program Sabra
       write(1,*) t,dreal(u(4)),dreal(u(9)), dreal(u(14)), sum(dreal(u)) 
       write(4,*) t, sum(dreal(u*conjg(forcing)+conjg(u)*forcing))/2, sum(u*conjg(G(u))+conjg(u)*G(u))/2, &
        sum(nu*(k**2)*(dreal(u*conjg(u)))) ! input, flux, dissipation
+      write(6,*) t, dreal(u*conjg(forcing)), dreal(u*conjg(G(u))) , nu*(k**2)*(dreal(u*conjg(u))) ! input, flux, diss
     end if
 
     if (i*dt/Tmax > 0.8) then 
@@ -114,6 +116,7 @@ program Sabra
   close(3)
   close(4)
   close(5)
+  close(6)
 
   write(*,*) ""
 end program Sabra
