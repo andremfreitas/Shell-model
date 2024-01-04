@@ -18,9 +18,9 @@ program Sabra
 
   !!! write output files !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   open(1, file = 'time_velocity.csv')
-  open(2, file = 'time__average_input_flux_dissipated.csv') ! for the whole system
+  open(2, file = 'time__average_input_flux_dissipated.csv') ! for the whole system -- theses are averaged in time using a rolling/moving average
   open(3, file = 'kn_S1_6.csv')
-  open(4, file = 'time_physical.csv')
+  open(4, file = 'time_physical.csv') 
   open(5, file = 'lagrangian.csv')
   open(6, file = 'n_physical.csv')  ! in reality this is still time series but not summed and for all n. later I can change it such that I just use this file and sum when sum is needed.
 
