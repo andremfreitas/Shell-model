@@ -100,18 +100,6 @@ plt.savefig(folder + 'struct_functions.png')
 plt.close()
 
 
-# Just plot the flux by itself
-
-plt.figure()
-plt.plot(kn, flux, label = 'Flux', marker = 'o')
-plt.xlabel(r'$n$', fontsize = 16)
-plt.ylabel(r'Flux', fontsize = 16)
-plt.gca().xaxis.set_major_locator(MultipleLocator(2))   # Set the x-axis locator to show multiples of 2
-#plt.xscale('log', base = 2)
-plt.yscale('log', base = 2)
-plt.tight_layout()
-plt.savefig(folder + 'flux.png')
-plt.close()
 
 # plot k41 theory slopes and data points for inertial range
 
@@ -180,7 +168,7 @@ plt.close()
 
 
 
-filename3 = 'time_velocity.csv'
+filename3 = folder + 'time_velocity.csv'
 table3 = np.genfromtxt(filename3, delimiter='')
 
 time3 = table3[:,0]
@@ -218,7 +206,7 @@ plt.tight_layout()
 plt.savefig(folder + 'pdf.png')
 plt.close() 
 
-filename4 = 'time_physical.csv'
+filename4 = folder + 'time_physical.csv'
 
 table4 = np.genfromtxt(filename4, delimiter='')
 
@@ -238,31 +226,31 @@ plt.close()
 
 # Lagrangian structure functions
 
-# filename5 = 'lagrangian.csv'
+filename5 = folder + 'lagrangian.csv'
 
-# table5 = np.genfromtxt(filename5, delimiter='')
+table5 = np.genfromtxt(filename5, delimiter='')
 
-# # v_sum = table3[:,4]
-# v_sum = table5[:,1]
+# v_sum = table3[:,4]
+v_sum = table5[:,1]
 
-# tau1, lagr1 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 1)
-# tau2, lagr2 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 2)
-# tau3, lagr3 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 3)
-# tau4, lagr4 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 4)
-# tau5, lagr5 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 5)
+tau1, lagr1 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 1)
+tau2, lagr2 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 2)
+tau3, lagr3 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 3)
+tau4, lagr4 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 4)
+tau5, lagr5 = lagrangian_struct_func(v_sum, 1e-4, 1e-2, 5)
 
-# plt.figure()
-# plt.loglog(tau1, lagr1, label = r'$S_1$', marker='o')
-# plt.loglog(tau2, lagr2, label = r'$S_2$', marker='o')
-# plt.loglog(tau3, lagr3, label = r'$S_3$', marker='o')
-# plt.loglog(tau4, lagr4, label = r'$S_4$', marker='o')
-# plt.loglog(tau5, lagr5, label = r'$S_5$', marker='o')
-# plt.ylabel(r'$L^p_{\tau}$', fontsize = 16)
-# plt.xlabel(r'$\tau$', fontsize = 16)
-# plt.legend(loc='upper left')
-# plt.tight_layout()
-# plt.savefig(folder + 'lagrangian_struct_func.png')
-# plt.close()
+plt.figure()
+plt.loglog(tau1, lagr1, label = r'$S_1$', marker='o')
+plt.loglog(tau2, lagr2, label = r'$S_2$', marker='o')
+plt.loglog(tau3, lagr3, label = r'$S_3$', marker='o')
+plt.loglog(tau4, lagr4, label = r'$S_4$', marker='o')
+plt.loglog(tau5, lagr5, label = r'$S_5$', marker='o')
+plt.ylabel(r'$L^p_{\tau}$', fontsize = 16)
+plt.xlabel(r'$\tau$', fontsize = 16)
+plt.legend(loc='upper left')
+plt.tight_layout()
+plt.savefig(folder + 'lagrangian_struct_func.png')
+plt.close()
 
 kurt = s4 / s2**2
 plt.plot(kn, kurt, marker='o')
@@ -278,7 +266,7 @@ plt.close()
 #########
 # Attempt at fluxes vs n
 
-filename6 = 'n_physical.csv'
+filename6 = folder + 'n_physical.csv'
 
 table6 = np.genfromtxt(filename6, delimiter='')
 
