@@ -64,7 +64,7 @@ def lagrangian_struct_func(u, tau_min, tau_max, p):
     return tau_values, L_tau_p_vector
 
 # where to save the figures
-folder = 'case2/'
+folder = 'case1/'
 
 filename = folder + 'kn_S1_6.csv'
 table = np.genfromtxt(filename, delimiter='')
@@ -277,15 +277,15 @@ I_n = np.array([np.average(table6[:,1]), np.average(table6[:,2]), np.average(tab
                 , np.average(table6[:,11]), np.average(table6[:,12]), np.average(table6[:,13]), np.average(table6[:,14]), np.average(table6[:,15])
                 , np.average(table6[:,16]), np.average(table6[:,17]), np.average(table6[:,18]), np.average(table6[:,19]), np.average(table6[:,20])])
 
-Pi_n = np.array([np.average(table6[:,21]), np.average(table6[:,22]), np.average(table6[:,23]), np.average(table6[:,24]), np.average(table6[:,25])
+Pi_n = np.cumsum(np.array([np.average(table6[:,21]), np.average(table6[:,22]), np.average(table6[:,23]), np.average(table6[:,24]), np.average(table6[:,25])
                 , np.average(table6[:,26]), np.average(table6[:,27]), np.average(table6[:,28]), np.average(table6[:,29]), np.average(table6[:,30])
                 , np.average(table6[:,31]), np.average(table6[:,32]), np.average(table6[:,33]), np.average(table6[:,34]), np.average(table6[:,35])
-                , np.average(table6[:,36]), np.average(table6[:,37]), np.average(table6[:,38]), np.average(table6[:,39]), np.average(table6[:,40])])
+                , np.average(table6[:,36]), np.average(table6[:,37]), np.average(table6[:,38]), np.average(table6[:,39]), np.average(table6[:,40])]))
 
-D_n = np.array([np.average(table6[:,41]), np.average(table6[:,42]), np.average(table6[:,43]), np.average(table6[:,44]), np.average(table6[:,45])
+D_n = np.cumsum(np.array([np.average(table6[:,41]), np.average(table6[:,42]), np.average(table6[:,43]), np.average(table6[:,44]), np.average(table6[:,45])
                 , np.average(table6[:,46]), np.average(table6[:,47]), np.average(table6[:,48]), np.average(table6[:,49]), np.average(table6[:,50])
                 , np.average(table6[:,51]), np.average(table6[:,52]), np.average(table6[:,53]), np.average(table6[:,54]), np.average(table6[:,55])
-                , np.average(table6[:,56]), np.average(table6[:,57]), np.average(table6[:,58]), np.average(table6[:,59]), np.average(table6[:,60])])
+                , np.average(table6[:,56]), np.average(table6[:,57]), np.average(table6[:,58]), np.average(table6[:,59]), np.average(table6[:,60])]))
 
 
 plt.figure()
