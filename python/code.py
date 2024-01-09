@@ -1,9 +1,5 @@
-###### jax python code ########
 import numpy as np 
 import matplotlib.pyplot as plt
-import jax
-import jax.numpy as jnp
-
 
 ####################################################################
 ######## Fixed Parameters & Useful vectors #########################
