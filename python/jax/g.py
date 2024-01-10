@@ -1,5 +1,6 @@
 import jax 
 import jax.numpy as jnp
+from jax import random
 
 # Here I will test the jax implementation of G [u,u] nonlinear coupling
 
@@ -58,3 +59,8 @@ u = jnp.zeros(N,dtype=complex) # Input to your solver
 gradient_at_x = grad_loss(u)
 
 print("Gradient at x =", gradient_at_x)
+
+key = random.PRNGKey(123)
+random_u = random.normal(key, shape=(N,), dtype=complex)
+gradient_at_random_u = grad_loss(random_u)
+print("Gradient at random input =", gradient_at_random_u)
