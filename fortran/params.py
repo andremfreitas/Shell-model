@@ -1,7 +1,10 @@
 import math
 
+# INPUTS #
+###########
 dn = 2.5
-nu = 1e-6
+nu = 1e-8
+###########
 
 eta = (nu**3 / dn)**0.25     # lenght scale
 k_eta = 1 / eta
