@@ -49,6 +49,24 @@ def sf (u_matrix, p):
     return  np.average(np.sqrt(np.real(u_matrix[100000:]*np.conj(u_matrix[100000:]))), axis=0)**p
 
 # closure 1
+complex_u_cutoff = complex_u[:, 0:15]
+
+un_cutoff_mag = np.abs(complex_u_cutoff[:, -1])
+
+un_cutoff_mag_squared = un_cutoff_mag ** 2
+
+u_np1_mag_sqr = un_cutoff_mag_squared * 2**(-2/3)
+u_np2_mag_sqr = un_cutoff_mag_squared * 2**(-4/3)
+
+u_np1_mag = np.sqrt(u_np1_mag_sqr)
+u_np2_mag = np.sqrt(u_np2_mag_sqr)
+
+u_np1 = u_np1_mag * 1j
+u_np2 = u_np2_mag * 1j
+
+complex_u_updt = np.column_stack((complex_u_cutoff, u_np1, u_np2))
+
+
 
 
 
@@ -85,9 +103,9 @@ def sf (u_matrix, p):
 # cbar.set_ticks(np.arange(1, num_sets + 1))
 
 
-# s = [sf(complex_u, i) for i in range(1, 7)]
+# s = [sf(complex_u_updt, i) for i in range(1, 7)]
 
-# n = np.arange(1,21)
+# n = np.arange(1,18)
 
 # plt.figure()
 # plt.plot(n, s[0], label = r'$S_1$', marker = 'o')
@@ -96,11 +114,16 @@ def sf (u_matrix, p):
 # plt.plot(n, s[3], label = r'$S_4$', marker = 'o')
 # plt.plot(n, s[4], label = r'$S_5$', marker = 'o')
 # plt.plot(n, s[5], label = r'$S_6$', marker = 'o')
+
+# ymin = min(s[5])
+# ymax = max(s[5])
+# plt.vlines(15, ymin, ymax, colors='black', label='Cut-off', lw = 2, ls = 'dashed')
+
 # plt.legend(loc='lower left')
 # plt.xlabel(r'$n$', fontsize = 16)
 # plt.ylabel(r'$S_n$', fontsize = 16)
 # plt.gca().xaxis.set_major_locator(MultipleLocator(2))   
 # plt.yscale('log', base = 2)
 # plt.tight_layout()
-# plt.savefig('struct_functions.png')
+# plt.savefig('struct_functions_k41_phase_pi2.png')
 # plt.close()
