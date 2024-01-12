@@ -43,6 +43,10 @@ module Integration
           G(n)=img*(b*k(n)*conjg(u(n-1))*u(n+1)-c*k(n-1)*u(n-1)*u(n-2))
         else if(n==Num-1) then 
           G(n)=img*(-c*k(n-1)*u(n-1)*u(n-2))
+        else if(n==15) then
+          G(n)=img*(b*k(n)*conjg(u(n-1))*u(n+1)-c*k(n-1)*u(n-1)*u(n-2))
+        else if(n==16) then
+          G(n)=img*(-c*k(n-1)*u(n-1)*u(n-2))
         else 
           G(n)=img*(a*k(n+1)*conjg(u(n+1))*u(n+2)+b*k(n)*conjg(u(n-1))*u(n+1)-c*k(n-1)*u(n-1)*u(n-2))
         end if 
